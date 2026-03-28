@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-gold: #FFFFFF; /* Monochrome White */
+  --color-gold-dim: #D4D4D8; /* Silver/Zinc */
+  --color-charcoal: #09090B; /* Deep Zinc Black */
+  
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    border-color: var(--color-gray-800, currentColor);
   }
+
+  html {
+    font-size: 16px;
+    @screen md {
+      font-size: 18px; /* Slightly larger base for high-end feel */
+    }
+  }
+
+  body {
+    @apply bg-black text-zinc-100 antialiased selection:bg-white selection:text-black font-body leading-relaxed;
+    font-size: 1rem;
+  }
+
+  /* High-Impact but Standard Quality Headings */
+  h1 { @apply font-display text-5xl md:text-7xl lg:text-8xl tracking-widest uppercase leading-[0.8] mb-8 italic; }
+  h2 { @apply font-display text-3xl md:text-4xl lg:text-5xl tracking-widest uppercase leading-tight mb-6; }
+  h3 { @apply font-display text-xl md:text-2xl tracking-[0.3em] uppercase mb-4 opacity-80; }
+  
+  /* Readable Body Text - Enforcing Standard Quality */
+  p { @apply text-zinc-400 text-sm md:text-base leading-relaxed mb-4; }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-gold {
+    @apply bg-white text-black px-12 py-5 font-display text-base tracking-[0.2em] uppercase transition-all hover:bg-zinc-200 active:scale-95 disabled:opacity-50 inline-flex items-center justify-center font-bold;
+  }
+
+  .btn-outline {
+    @apply border border-white/20 bg-transparent text-white px-12 py-5 font-display text-base tracking-[0.2em] uppercase transition-all hover:bg-white hover:text-black active:scale-95 disabled:opacity-50 inline-flex items-center justify-center;
+  }
+
+  .glass-card {
+    @apply bg-zinc-900/50 border border-white/10 backdrop-blur-xl transition-all;
+  }
 }
