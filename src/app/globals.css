@@ -17,7 +17,7 @@
 
   html {
     font-size: 16px;
-    @screen md {
+    @media (min-width: 768px) {
       font-size: 18px; /* Slightly larger base for high-end feel */
     }
   }
