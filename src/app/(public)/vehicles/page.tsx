@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { 
   Filter, 
@@ -17,7 +17,7 @@ import { VehicleCard } from "../../../components/vehicles/VehicleCard";
 import { MOCK_VEHICLES } from "../../../lib/mocks";
 import { cn } from "../../../lib/utils";
 
-export default function VehiclesPage() {
+function VehiclesContent() {
   const searchParams = useSearchParams();
   const typeFilter = searchParams.get("type");
 
@@ -141,5 +141,18 @@ export default function VehiclesPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function VehiclesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center space-y-4">
+        <div className="text-xs font-display text-zinc-600 tracking-[0.6em] uppercase block animate-pulse">Initializing Bureau</div>
+        <div className="text-xl font-display tracking-widest uppercase italic">Loading Assets...</div>
+      </div>
+    }>
+      <VehiclesContent />
+    </Suspense>
   );
 }
